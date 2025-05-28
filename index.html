@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz Urodzinowy</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #cde, #eef);
+      text-align: center;
+      padding: 50px;
+    }
+    .card {
+      background: white;
+      border-radius: 20px;
+      padding: 30px;
+      max-width: 500px;
+      margin: auto;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    }
+    input[type="text"] {
+      padding: 10px;
+      width: 80%;
+      margin-top: 20px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 10px;
+      background-color: #4CAF50;
+      color: white;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    #invitation {
+      display: none;
+      font-size: 20px;
+      margin-top: 30px;
+      color: #333;
+      animation: fadeIn 2s ease-in-out forwards;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="card" id="quiz">
+    <h2 id="question">Pytanie 1: Co to jest? Po stawie pływa i kaczka się nazywa.</h2>
+    <input type="text" id="answer" placeholder="Wpisz odpowiedź...">
+    <br>
+    <button onclick="checkAnswer()">Dalej</button>
+  </div>
+
+  <div id="invitation">
+    <h2>Zaproszenie!</h2>
+    <p>Zapraszam Cię na moje 18. urodziny, które odbędą się <strong>08.06.2025</strong> na <strong>Pogorii 1</strong>!</p>
+    <p>Godzina i miejsce dokładne podam ręcznie :)</p>
+  </div>
+
+  <script>
+    let currentQuestion = 0;
+    const questions = [
+      {
+        text: "Pytanie 1: Co to jest? Po stawie pływa i kaczka się nazywa.",
+        answer: "kaczka"
+      },
+      {
+        text: "Pytanie 2: Kiedy mam urodziny ??",
+        answer: "06.06.2007"
+      },
+      {
+        text: "Pytanie 3: Ile to 6 + 6 + 2007?",
+        answer: (6 + 6 + 2007).toString()
+      }
+    ];
+
+    function checkAnswer() {
+      const userAnswer = document.getElementById('answer').value.trim().toLowerCase();
+      const correctAnswer = questions[currentQuestion].answer.toLowerCase();
+      
+      if (userAnswer === correctAnswer) {
+        currentQuestion++;
+        if (currentQuestion < questions.length) {
+          document.getElementById('question').innerText = questions[currentQuestion].text;
+          document.getElementById('answer').value = '';
+        } else {
+          document.getElementById('quiz').style.display = 'none';
+          document.getElementById('invitation').style.display = 'block';
+        }
+      } else {
+        alert("Niepoprawna odpowiedź. Spróbuj ponownie.");
+      }
+    }
+  </script>
+</body>
+</html>
